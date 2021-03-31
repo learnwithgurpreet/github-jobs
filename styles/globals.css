@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h2 {
+  @apply text-xl font-bold
+}
+
+body {
+  @apply bg-gray-100
+}
+
+.description-text {
+  @apply pt-6 text-gray-500
+}
+
+.description-text p {
+  @apply pb-4
+}
+
+.description-text ul {
+  @apply list-disc pl-4 pb-8
+}
+
+.apply-cta p {
+  @apply text-left sm:text-right
+}
+
+.apply-cta a {
+  @apply font-medium rounded-lg py-4 px-4 bg-indigo-700 text-white
+}
