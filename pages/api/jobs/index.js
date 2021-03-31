@@ -3,12 +3,11 @@
 export default async (req, res) => {
   const { page = 1, id } = req.query
   let reqUrl = ''
-  const url = process.env.API_URL || 'https://jobs.github.com'
 
   if (id) {
-    reqUrl = `https://jobs.github.com/positions/${id}.json`
+    reqUrl = `${process.env.HOST_API}/positions/${id}.json`
   } else {
-    reqUrl = `https://jobs.github.com/positions.json?page=${page}`
+    reqUrl = `${process.env.HOST_API}/positions.json?page=${page}`
   }
   const response = await fetch(reqUrl)
 

@@ -21,7 +21,7 @@ export default function Job({ response }) {
 }
 
 export async function getServerSideProps(context) {
-  const endpoint = process.env.API || 'http://localhost:3001'
+  const endpoint = process.env.API
   const { id } = context.query
 
   // Fetch data from external API

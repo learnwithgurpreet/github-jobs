@@ -1,29 +1,40 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Card from '../components/Card'
 import Button from '../components/Button'
+import Skeleton from '../components/Skeleton'
 
-export default function Home({ data }) {
-  const [jobs, setJobs] = useState(data)
+const endpoint = `${process.env.API}/api/jobs/`
+
+export default function Home() {
+  const [jobs, setJobs] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [disabled, setDisabled] = useState(false)
   const [hideBtn, setHideBtn] = useState(false)
-  const [btnText, setBtnText] = useState("Load More")
+  const [loading, setLoading] = useState(false)
 
   const loadMore = async (newPage) => {
-    setDisabled(true)
-    setBtnText("Loading...")
-    const res = await fetch(`/api/jobs/?page=${newPage}`)
+    setLoading(true)
+    const res = await fetch(`${endpoint}?page=${newPage}`)
     const serviceRes = await res.json()
     if (serviceRes.length > 0) {
       setJobs(jobs => [...jobs, ...serviceRes])
       setCurrentPage(newPage)
-      setDisabled(false)
-      setBtnText("Load More")
+      setLoading(false)
     } else {
       setHideBtn(true)
     }
   }
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true)
+      const res = await fetch(`${endpoint}?page=1`)
+      const data = await res.json()
+      setJobs(data)
+      setLoading(false)
+    }
+    loadData()
+  }, [])
 
   return (
     <div className="pt-20">
@@ -35,26 +46,20 @@ export default function Home({ data }) {
         {jobs.map((obj, index) => {
           return <Card key={`${obj.id}-${index}`} data={obj} />
         })}
+        {jobs.length === 0 && <>
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+        </>}
       </div>
-      <div className={`text-center ${hideBtn ? `hidden` : ''}`}>
-        <Button name="load-btn" onClick={() => loadMore(currentPage + 1)} disabled={disabled}>{btnText}</Button>
+      <div className={`flex justify-center ${hideBtn ? `hidden` : ''}`}>
+        <Button name="load-btn" classes="flex" onClick={() => loadMore(currentPage + 1)} disabled={loading}>
+          <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white ${!loading ? ' hidden' : ''}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>{loading ? "Processing" : "Load More"}
+        </Button>
       </div>
     </div>
   )
-}
-
-export async function getServerSideProps(context) {
-  const endpoint = process.env.API || 'http://localhost:3001'
-  const res = await fetch(`${endpoint}/api/jobs/?page=1`)
-  const data = await res.json()
-
-  if (!data) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: { data }, // will be passed to the page component as props
-  }
 }
