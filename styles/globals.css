@@ -14,7 +14,8 @@ body {
   @apply pt-6 text-gray-500
 }
 
-.description-text p {
+.description-text p,
+.apply-cta p {
   @apply pb-4
 }
 
@@ -22,10 +23,6 @@ body {
   @apply list-disc pl-4 pb-8
 }
 
-.apply-cta p {
-  @apply text-left sm:text-right
-}
-
 .apply-cta a {
-  @apply font-medium rounded-lg py-4 px-4 bg-indigo-700 text-white
+  @apply font-medium text-indigo-700
 }
