@@ -1,13 +1,11 @@
-import styles from './Footer.module.css'
-
 const Footer = () => {
-  return <footer>
+  return <footer className="footer">
     <a
       href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
       target="_blank"
       rel="noopener noreferrer"
     >
-      Powered by{' '}
+      Powered by{' '} <img className="inline" src="/vercel.svg" width={70} />
     </a>
   </footer>
 }
