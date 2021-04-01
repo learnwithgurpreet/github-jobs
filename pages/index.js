@@ -28,10 +28,17 @@ export default function Home() {
   useEffect(() => {
     const loadData = async () => {
       setLoading(true)
-      const res = await fetch(`${endpoint}?page=1`)
-      const data = await res.json()
-      setJobs(data)
-      setLoading(false)
+      const allJobs = window.localStorage.getItem('all-jobs')
+      if (allJobs) {
+        setJobs(JSON.parse(allJobs))
+        setLoading(false)
+      } else {
+        const res = await fetch(`${endpoint}?page=1`)
+        const data = await res.json()
+        window.localStorage.setItem('all-jobs', JSON.stringify(data))
+        setJobs(data)
+        setLoading(false)
+      }
     }
     loadData()
   }, [])

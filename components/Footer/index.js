@@ -5,7 +5,7 @@ const Footer = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      Powered by{' '} <img className="inline" src="/vercel.svg" width={70} />
+      Powered by{' '} <img className="inline" src="/vercel-logo.svg" width={70} />
     </a>
   </footer>
 }
