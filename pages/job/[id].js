@@ -1,7 +1,8 @@
 import Head from 'next/head'
+import moment from 'moment'
 
 export default function Job({ response }) {
-  const { company, title, location, type, description, how_to_apply } = response
+  const { company, title, location, type, description, how_to_apply, created_at } = response
   return (
     <div className="pt-20">
       <Head>
@@ -9,7 +10,7 @@ export default function Job({ response }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="p-12 bg-white rounded-lg shadow-md md:shadow-lg">
-        <p className="text-sm text-gray-400 mb-2">5h ago - {type}</p>
+        <p className="text-sm text-gray-400 mb-2">{moment(moment(created_at).format("YYYYMMDD"), "YYYYMMDD").fromNow()} - {type}</p>
         <h2 className="font-bold text-3xl">{title}</h2>
         <p className="mt-2 text-gray-400 font-semibold">{location}</p>
         <hr className="mb-2 mt-4" />
