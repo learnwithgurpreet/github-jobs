@@ -1,11 +1,12 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import moment from 'moment'
 
 const Card = ({ data }) => {
   const companyLogo = data.company_logo || '/company-logo.png'
   return <div className="bg-white shadow-md rounded-lg p-6 h-48 relative mb-9">
-    <div className="rounded-3xl absolute -top-8 shadow-md bg-indigo-50 w-14 h-14 align-middle">
-      <img className="rounded-3xl" src={companyLogo} width="56" height="56" loading="lazy" />
+    <div className="bg-white rounded-3xl absolute -top-8 shadow-md w-14 h-14 overflow-hidden">
+      <Image src={companyLogo} layout="fill" objectFit="contain" />
     </div>
     <p className="text-sm text-gray-400 mt-4">{moment(moment(data.created_at).format("YYYYMMDD"), "YYYYMMDD").fromNow()} - {data.type}</p>
     <h2 className="mt-2 overflow-hidden truncate"><Link href={`/job/${data.id}`}><a className="hover:underline">{data.title}</a></Link></h2>
