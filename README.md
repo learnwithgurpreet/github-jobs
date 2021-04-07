@@ -27,5 +27,3 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 ## Deploy on Vercel
 
 This project is deployed using [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) you can [check it here](https://vercel.com/gsin11/github-jobs)
-
-Check out our [this project](https://vercel.com/gsin11/github-jobs) for more details.
